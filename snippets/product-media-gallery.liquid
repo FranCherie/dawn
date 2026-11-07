@@ -56,6 +56,24 @@
     <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
       {{ 'accessibility.skip_to_product_info' | t }}
     </a>
+    {%- liquid
+      assign ou_first_video = product.media | where: 'media_type', 'video' | first
+      if ou_first_video == blank
+        assign ou_first_video = product.media | where: 'media_type', 'external_video' | first
+      endif
+    -%}
+    {%- if ou_first_video -%}
+      <button
+        type="button"
+        class="ou-video-gallery"
+        data-media-target="{{ section.id }}-{{ ou_first_video.id }}"
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-play.svg' | inline_asset_content -}}
+        </span>
+        Video Gallery
+      </button>
+    {%- endif -%}
     <ul
       id="Slider-Gallery-{{ section.id }}"
       class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
@@ -330,3 +348,4 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+<script src="{{ 'product-video-autoplay.js' | asset_url }}" defer="defer"></script>

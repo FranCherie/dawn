@@ -1,5 +1,16 @@
 {
   "sections": {
+    "oddly_hero": {
+      "type": "oddly-hero",
+      "settings": {
+        "eyebrow": "New drop",
+        "heading": "Oddly useful finds",
+        "subheading": "Things you didn't know you needed, shipped fast.",
+        "button_label": "Shop now",
+        "button_link": "shopify://collections/all",
+        "bg_color": "#fcc503"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -69,6 +80,7 @@
     }
   },
   "order": [
+    "oddly_hero",
     "image_banner",
     "featured_collection"
   ]

@@ -50,6 +50,34 @@
   -%}
     {%- unless only_empty_brand -%}
       <div class="footer__content-top page-width">
+        <div class="footer__brand">
+          <a href="{{ routes.root_url }}" class="footer__logo-link" aria-label="{{ shop.name | escape }}">
+            {%- if settings.logo != blank -%}
+              {%- assign footer_logo_alt = settings.logo.alt | default: shop.name | escape -%}
+              {%- assign footer_logo_height = 160 | divided_by: settings.logo.aspect_ratio -%}
+              {{
+                settings.logo
+                | image_url: width: 320
+                | image_tag:
+                  class: 'footer__logo',
+                  widths: '160, 240, 320',
+                  width: 160,
+                  height: footer_logo_height,
+                  alt: footer_logo_alt,
+                  loading: 'lazy'
+              }}
+            {%- else -%}
+              <img
+                src="{{ 'oddly-useful-logo.png' | asset_url }}"
+                alt="{{ shop.name | escape }}"
+                class="footer__logo"
+                width="160"
+                height="107"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </a>
+        </div>
         {%- if section.blocks.size > 0 -%}
           {%- liquid
             if section.blocks.size == 9
@@ -302,7 +330,10 @@
         <small class="copyright__content"
           >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
         </small>
-        <small class="copyright__content">{{ powered_by_link }}</small>
+        <small class="copyright__content">
+          Built by
+          <a href="https://www.multiwebcodex.com" target="_blank" rel="noopener">Multi WebCodex N.V.</a>
+        </small>
         {%- if section.settings.show_policy -%}
           <ul class="policies list-unstyled">
             {%- for policy in shop.policies -%}

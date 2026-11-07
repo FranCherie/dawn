@@ -1,0 +1,31 @@
+<div class="ou-tip page-width">
+  {% if section.settings.heading != blank %}
+    <h3>{{ section.settings.heading | escape }}</h3>
+  {% endif %}
+  {% assign useful = product.metafields.custom.how_its_useful %}
+  {% if useful != blank %}
+    <div class="rte">{{ useful | metafield_tag }}</div>
+  {% elsif section.settings.body != blank %}
+    <div class="rte">{{ section.settings.body }}</div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Oddly Useful tip",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "How it's useful" },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Text",
+      "info": "Shown when the product metafield custom.how_its_useful is empty.",
+      "default": "<p>Describe the everyday problem this product solves.</p>"
+    }
+  ],
+  "presets": [{ "name": "Oddly Useful tip" }],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}
